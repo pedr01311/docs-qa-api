@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 
 app = FastAPI()
 
@@ -20,4 +20,7 @@ def verificar_consulta(consulta_id: int):
     for con in consultas:
         if(con["id"] == consulta_id):
             return(con)
+    raise HTTPException(status_code=404, detail="Consulta não encontrada")
+
+       
             
