@@ -45,3 +45,13 @@ def deletar_consulta(consulta_id: int):
             consultas.remove(con)
             return{"message": "Consulta removida com sucesso!"}
     raise HTTPException(status_code=404, detail="Consulta nao encontrada!")           
+
+@app.put("/consultas/{consulta_id}")
+def atualizar_consulta(consulta: Consulta, consulta_id: int):
+    for con in consultas:
+        dados = consulta.model_dump()
+        if(con["id"] == consulta_id):
+            con["tipo"] = dados["tipo"]
+            con["dia"] = dados["dia"]
+            return{"message": "Consulta alterada"}
+    raise HTTPException(status_code=404, detail="Consulta não encontrada")    
